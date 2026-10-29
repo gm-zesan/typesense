@@ -4,7 +4,7 @@ services:
     container_name: typesense
     restart: unless-stopped
     ports:
-      - "8108:8108"
+      - "${TYPESENSE_BIND_ADDRESS:-127.0.0.1}:8108:8108"
     volumes:
       - ./data:/data
     command: >
@@ -22,8 +22,8 @@ services:
     container_name: neo4j
     restart: unless-stopped
     ports:
-      - "7474:7474" # HTTP Browser & Cypher REST API
-      - "7687:7687" # Bolt Protocol (Graphiti / Neo4j driver)
+      - "${NEO4J_BIND_ADDRESS:-127.0.0.1}:7474:7474" # HTTP Browser & Cypher REST API
+      - "${NEO4J_BIND_ADDRESS:-127.0.0.1}:7687:7687" # Bolt Protocol (Graphiti / Neo4j driver)
     environment:
       - NEO4J_AUTH=neo4j/secret1234
       - NEO4J_PLUGINS=["apoc"]

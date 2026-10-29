@@ -1,0 +1,19 @@
+services:
+  typesense-disposable-smoke-test:
+    image: typesense/typesense:29.0
+    container_name: typesense-disposable-smoke-test
+    restart: "no"
+    ports:
+      - "8109:8108"
+    volumes:
+      - ./data-disposable-test:/data
+    command: >
+      --data-dir /data
+      --api-key=m_JSgPavO2LV4XR0iDxE5BzHxfq4Xym52BPQrNnsd2Y
+      --enable-cors
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8108/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
